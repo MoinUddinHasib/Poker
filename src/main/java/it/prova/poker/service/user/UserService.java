@@ -15,5 +15,7 @@ public interface UserService {
 	public void inserisciNuovo(User user);
 
 	public void rimuovi(User user);
+	
+	public User caricaPerUsername(String username);
 
 }

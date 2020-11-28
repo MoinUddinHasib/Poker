@@ -46,16 +46,16 @@ public class User {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_registrazione")
-	private Date dataRegistrazione;
+	private Date dataRegistrazione = new Date();
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stato")
 	private Stato stato = Stato.CREATO;
 	
 	@Column(name = "esperienza_accumulata")
-	private int esperienzaAccumulata = 0;
+	private Integer esperienzaAccumulata = 0;
 	@Column(name = "credito_accumulato")
-	private int creditoAccumulato = 0;
+	private Integer creditoAccumulato = 0;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tavolo_fk_gioco")
@@ -74,13 +74,12 @@ public class User {
 		super();
 	}
 
-	public User(String nome, String cognome, String username, String password, Date dataRegistrazione) {
+	public User(String nome, String cognome, String username, String password) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
-		this.dataRegistrazione = dataRegistrazione;
 	}
 
 	public Long getId() {
@@ -147,19 +146,19 @@ public class User {
 		this.ruoli = ruoli;
 	}
 
-	public int getEsperienzaAccumulata() {
+	public Integer getEsperienzaAccumulata() {
 		return esperienzaAccumulata;
 	}
 
-	public void setEsperienzaAccumulata(int esperienzaAccumulata) {
+	public void setEsperienzaAccumulata(Integer esperienzaAccumulata) {
 		this.esperienzaAccumulata = esperienzaAccumulata;
 	}
 
-	public int getCreditoAccumulato() {
+	public Integer getCreditoAccumulato() {
 		return creditoAccumulato;
 	}
 
-	public void setCreditoAccumulato(int creditoAccumulato) {
+	public void setCreditoAccumulato(Integer creditoAccumulato) {
 		this.creditoAccumulato = creditoAccumulato;
 	}
 
@@ -179,8 +178,6 @@ public class User {
 		this.tavoli_creati = tavoli_creati;
 	}
 	
-	
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", username=" + username + ", password="

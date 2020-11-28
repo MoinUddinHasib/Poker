@@ -30,18 +30,34 @@ public class TavoloServiceImpl implements TavoloService {
 	@Override
 	@Transactional
 	public void aggiorna(Tavolo tavolo) {
+		if(tavolo.getId()==null || tavolo.getEsperienzaMin()==null || tavolo.getCifraMin()==null
+				|| tavolo.getDenominazione()==null || tavolo.getDataCreazione()==null
+				|| tavolo.getUser_creatore()==null) {
+			System.err.println("Impossibile aggiornare il tavolo");
+			return;
+		}
 		tavoloRepository.save(tavolo);
 	}
 
 	@Override
 	@Transactional
 	public void inserisciNuovo(Tavolo tavolo) {
+		if(tavolo.getEsperienzaMin()==null || tavolo.getCifraMin()==null
+				|| tavolo.getDenominazione()==null || tavolo.getDataCreazione()==null
+				|| tavolo.getUser_creatore()==null) {
+			System.err.println("Impossibile inserire il tavolo");
+			return;
+		}
 		tavoloRepository.save(tavolo);
 	}
 
 	@Override
 	@Transactional
 	public void rimuovi(Tavolo tavolo) {
+		if(tavolo.getUsers().size()!=0) {
+			System.err.println("Impossibile rimuovere il tavolo perchè ci sono giocatori");
+			return;
+		}
 		tavoloRepository.delete(tavolo);
 	}
 

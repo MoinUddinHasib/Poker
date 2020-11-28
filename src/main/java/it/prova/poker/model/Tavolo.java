@@ -26,15 +26,15 @@ public class Tavolo {
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "esperienza_min")
-	private int esperienzaMin;
+	private Integer esperienzaMin;
 	@Column(name = "cifra_min")
-	private int cifraMin;
+	private Integer cifraMin;
 	@Column(name = "denominazione")
 	private String denominazione;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_registrazione")
-	private Date dataRegistrazione;
+	@Column(name = "data_creazione")
+	private Date dataCreazione = new Date();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();
@@ -47,14 +47,12 @@ public class Tavolo {
 		super();
 	}
 
-	public Tavolo(Long id, int esperienzaMin, int cifraMin, String denominazione, Date dataRegistrazione,
-			User user_creatore) {
+	public Tavolo(Long id, Integer esperienzaMin, Integer cifraMin, String denominazione, User user_creatore) {
 		super();
 		this.id = id;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
-		this.dataRegistrazione = dataRegistrazione;
 		this.user_creatore = user_creatore;
 	}
 
@@ -66,19 +64,19 @@ public class Tavolo {
 		this.id = id;
 	}
 
-	public int getEsperienzaMin() {
+	public Integer getEsperienzaMin() {
 		return esperienzaMin;
 	}
 
-	public void setEsperienzaMin(int esperienzaMin) {
+	public void setEsperienzaMin(Integer esperienzaMin) {
 		this.esperienzaMin = esperienzaMin;
 	}
 
-	public int getCifraMin() {
+	public Integer getCifraMin() {
 		return cifraMin;
 	}
 
-	public void setCifraMin(int cifraMin) {
+	public void setCifraMin(Integer cifraMin) {
 		this.cifraMin = cifraMin;
 	}
 
@@ -90,12 +88,12 @@ public class Tavolo {
 		this.denominazione = denominazione;
 	}
 
-	public Date getDataRegistrazione() {
-		return dataRegistrazione;
+	public Date getDataCreazione() {
+		return dataCreazione;
 	}
 
-	public void setDataRegistrazione(Date dataRegistrazione) {
-		this.dataRegistrazione = dataRegistrazione;
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
 	}
 
 	public Set<User> getUsers() {
@@ -117,7 +115,7 @@ public class Tavolo {
 	@Override
 	public String toString() {
 		return "Tavolo [id=" + id + ", esperienzaMin=" + esperienzaMin + ", cifraMin=" + cifraMin + ", denominazione="
-				+ denominazione + ", dataRegistrazione=" + dataRegistrazione + ", users=" + users.size() + ", user_creatore="
+				+ denominazione + ", dataCreazione=" + dataCreazione + ", users=" + users.size() + ", user_creatore="
 				+ user_creatore + "]";
 	}
 

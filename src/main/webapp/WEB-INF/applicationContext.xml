@@ -20,7 +20,7 @@
 	<context:component-scan base-package="it.prova.poker" />
 	<!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
 	<context:annotation-config />
-	<!-- <jpa:repositories base-package="it.prova.poker.repository"/> -->
+	<jpa:repositories base-package="it.prova.poker.repository"/>
 	
 	<!-- #################################################################### -->
 	<!-- ########### IMPOSTAZIONI PER USARE JPA E TRANSACTION ############### -->

@@ -1,48 +1,33 @@
-<!-- Bootstrap -->
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css" >
 
-<!-- Static navbar -->
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/home.jsp">Gestione Municipio Abitante</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarSupportedContent"
-		aria-controls="navbarSupportedContent" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+<!-- Favicons -->
+<link rel="apple-touch-icon" href="./assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="./assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="./assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="./assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="./assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="./assets/img/favicons/favicon.ico">
+<meta name="msapplication-config" content="./assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/home.jsp">Home
-					<span class="sr-only">(current)</span>
-			</a></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> Dropdown </a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div></li>
-		</ul>
-		 <ul class="nav navbar-nav navbar-right">
-            <li><p class="navbar-text">Utente: ${userInfo.username }(${userInfo.nome } ${userInfo.cognome })
-            <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></p> 
-            </li>
-          </ul>
-	</div>
-</nav>
+<style>
+	.bd-placeholder-img {
+	  font-size: 1.125rem;
+	  text-anchor: middle;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	}
 
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="${pageContext.request.contextPath}/js/jquery-1.10.2.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.js"></script>
-<script	src="${pageContext.request.contextPath}/js/jqueryUI/jquery-ui.min.js"></script>
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>

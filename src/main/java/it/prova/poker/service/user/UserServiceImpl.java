@@ -30,19 +30,43 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void aggiorna(User user) {
+		if(user.getId()==null || user.getNome()==null || user.getCognome()==null ||
+				user.getUsername()==null || user.getPassword()==null ||
+				user.getDataRegistrazione()==null || user.getStato()==null
+				|| user.getEsperienzaAccumulata()==null || user.getCreditoAccumulato()==null) {
+			System.err.println("Impossibile aggiornare lo user");
+			return;
+		}
 		userRepository.save(user);
 	}
 
 	@Override
 	@Transactional
 	public void inserisciNuovo(User user) {
+		if(user.getNome()==null || user.getCognome()==null ||
+				user.getUsername()==null || user.getPassword()==null ||
+				user.getDataRegistrazione()==null || user.getStato()==null
+				|| user.getEsperienzaAccumulata()==null || user.getCreditoAccumulato()==null) {
+			System.err.println("Impossibile inserire lo user");
+			return;
+		}
 		userRepository.save(user);
 	}
 
 	@Override
 	@Transactional
 	public void rimuovi(User user) {
+		if(user.getTavolo_gioco()!=null || user.getTavoli_creati().size()!=0) {
+			System.err.println("Impossibile cancellare lo user");
+			return;
+		}
 		userRepository.delete(user);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public User caricaPerUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 
 }

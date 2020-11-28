@@ -7,4 +7,5 @@ import it.prova.poker.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long>, QueryByExampleExecutor<User> {
 
+	User findByUsername(String username);
 }
