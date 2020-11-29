@@ -45,7 +45,6 @@ public class RegistrazioneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setAttribute("userCampi", new UserDTO());
 		request.getRequestDispatcher("form_registrazione.jsp").forward(request, response);
 	}
 

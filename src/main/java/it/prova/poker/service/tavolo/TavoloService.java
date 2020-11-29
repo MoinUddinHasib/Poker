@@ -15,4 +15,6 @@ public interface TavoloService {
 	public void inserisciNuovo(Tavolo tavolo);
 
 	public void rimuovi(Tavolo tavolo);
+	
+	public List<Tavolo> findByExample(Tavolo tavolo);
 }

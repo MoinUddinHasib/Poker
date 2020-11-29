@@ -79,13 +79,7 @@ public class UserDTO {
 	}
 
 	public static User buildModelFromDto(UserDTO userDTO) {
-		User result = new User();
-		result.setId(userDTO.id);
-		result.setNome(userDTO.nome);
-		result.setCognome(userDTO.cognome);
-		result.setUsername(userDTO.username);
-		result.setPassword(userDTO.password);
-		return result;
+		return new User(userDTO.nome,userDTO.cognome,userDTO.username,userDTO.password);
 	}
 
 }

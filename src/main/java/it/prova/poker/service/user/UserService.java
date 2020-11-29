@@ -18,4 +18,6 @@ public interface UserService {
 	
 	public User caricaPerUsername(String username);
 
+	public List<User> cercaByUsernameILike(String term);
+
 }

@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 				user.getDataRegistrazione()==null || user.getStato()==null
 				|| user.getEsperienzaAccumulata()==null || user.getCreditoAccumulato()==null) {
 			System.err.println("Impossibile aggiornare lo user");
-			return;
+			System.exit(1);
 		}
 		userRepository.save(user);
 	}
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 				user.getDataRegistrazione()==null || user.getStato()==null
 				|| user.getEsperienzaAccumulata()==null || user.getCreditoAccumulato()==null) {
 			System.err.println("Impossibile inserire lo user");
-			return;
+			System.exit(1);
 		}
 		userRepository.save(user);
 	}
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	public void rimuovi(User user) {
 		if(user.getTavolo_gioco()!=null || user.getTavoli_creati().size()!=0) {
 			System.err.println("Impossibile cancellare lo user");
-			return;
+			System.exit(1);
 		}
 		userRepository.delete(user);
 	}
@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User caricaPerUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<User> cercaByUsernameILike(String term) {
+		return userRepository.findAllByUsernameContaining(term);
 	}
 
 }

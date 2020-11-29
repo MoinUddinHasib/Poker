@@ -27,7 +27,7 @@
 				</div></li>
 			<li class="nav-item active"></li>
 			<li class="nav-item active">
-      <c:if test="${ sessionScope.user.stato != null}">
+      <c:if test="${ sessionScope.user != null}">
         <a class="nav-link" href="ServletLogOut">Log-Out <span class="sr-only">(current)</span></a>
         </c:if>
       </li>

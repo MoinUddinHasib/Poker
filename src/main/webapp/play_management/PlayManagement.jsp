@@ -3,21 +3,21 @@
 <html lang="it">
   <head>
     
-    <jsp:include page="./header.jsp" />
+    <jsp:include page="../header.jsp" />
     
     <!-- Custom styles for this template -->
-    <link href="./assets/css/global.css" rel="stylesheet">
+     <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
     <style type="text/css">
     	body {
 		  padding-top: 3.5rem;
 		}	
     </style>
-    
-    <title>Poker</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
+    <title>Play Management</title>
   </head>
   <body>
   
-	<jsp:include page="./navbar.jsp"></jsp:include>
+	<jsp:include page="../navbar.jsp"></jsp:include>
   
   
 	<main role="main">
@@ -45,11 +45,11 @@
 	  <!-- Main jumbotron for a primary marketing message or call to action -->
 	  <div class="jumbotron" >
 	    <div class="container">
-	      <h1 class="display-3">Poker</h1>
+	      <h1 class="display-3">Play Management</h1>
 	      <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-	      <p><a class="btn btn-primary btn-lg" href="play_management/PlayManagement.jsp" role="button">Play Management &raquo;</a></p>
-	      <p><a class="btn btn-primary btn-lg" href="TavoloServlet" role="button">Gestione Tavolo &raquo;</a></p>
-	      <p><c:if test = "true"><a class="btn btn-primary btn-lg" href="AmministrazioneServlet" role="button">Gestione Amministrazione &raquo;</a></c:if></p>
+	      <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CompraCreditoServlet" role="button">Compra Credito &raquo;</a></p>
+	      <p><c:if test = "${ sessionScope.tavolo_gioco != null }"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/LastGameServlet" role="button">Go To Last Game &raquo;</a></c:if></p>
+	      <p><c:if test = "${ sessionScope.tavolo_gioco == null }"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CercaPartitaServlet" role="button">Ricerca Partita &raquo;</a></c:if></p>
 	    </div>
 	  </div>
 	  
@@ -79,6 +79,6 @@
 	
 	</main>
 	
-	<jsp:include page="./footer.jsp" />
+	<jsp:include page="../footer.jsp" />
   </body>
 </html>

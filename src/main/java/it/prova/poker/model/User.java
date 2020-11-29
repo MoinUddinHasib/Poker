@@ -1,6 +1,7 @@
 package it.prova.poker.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,8 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "user")
@@ -44,9 +43,8 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "data_registrazione")
-	private Date dataRegistrazione = new Date();
+	private LocalDate dataRegistrazione;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stato")
@@ -80,6 +78,11 @@ public class User {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
+		
+		String data=LocalDate.now().toString();
+		String[] dat=data.split("-");
+		dat[2]=String.valueOf(Integer.parseInt(dat[2])+1);
+		dataRegistrazione = LocalDate.parse(dat[0]+"-"+dat[1]+"-"+dat[2]);
 	}
 
 	public Long getId() {
@@ -122,11 +125,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getDataRegistrazione() {
+	public LocalDate getDataRegistrazione() {
 		return dataRegistrazione;
 	}
 
-	public void setDataRegistrazione(Date dataRegistrazione) {
+	public void setDataRegistrazione(LocalDate dataRegistrazione) {
 		this.dataRegistrazione = dataRegistrazione;
 	}
 

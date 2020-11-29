@@ -1,6 +1,7 @@
 package it.prova.poker.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tavolo")
@@ -32,9 +31,8 @@ public class Tavolo {
 	@Column(name = "denominazione")
 	private String denominazione;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "data_creazione")
-	private Date dataCreazione = new Date();
+	private LocalDate dataCreazione;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();
@@ -54,6 +52,11 @@ public class Tavolo {
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
 		this.user_creatore = user_creatore;
+		
+		String data=LocalDate.now().toString();
+		String[] dat=data.split("-");
+		dat[2]=String.valueOf(Integer.parseInt(dat[2])+1);
+		dataCreazione = LocalDate.parse(dat[0]+"-"+dat[1]+"-"+dat[2]);
 	}
 
 	public Long getId() {
@@ -88,11 +91,11 @@ public class Tavolo {
 		this.denominazione = denominazione;
 	}
 
-	public Date getDataCreazione() {
+	public LocalDate getDataCreazione() {
 		return dataCreazione;
 	}
 
-	public void setDataCreazione(Date dataCreazione) {
+	public void setDataCreazione(LocalDate dataCreazione) {
 		this.dataCreazione = dataCreazione;
 	}
 
