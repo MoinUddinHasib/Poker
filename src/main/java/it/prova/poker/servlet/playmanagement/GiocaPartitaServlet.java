@@ -56,7 +56,7 @@ public class GiocaPartitaServlet extends HttpServlet {
 		try {
 			t=tavoloService.caricaSingoloTavolo(Long.parseLong(idTavolo));
 		} catch (NumberFormatException e) {
-			response.sendRedirect("ServletLogOut");
+			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
 		if(u.getCreditoAccumulato()<t.getCifraMin()) {

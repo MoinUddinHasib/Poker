@@ -11,7 +11,7 @@
 <link href="${pageContext.request.contextPath}/assets/css/global.css"
 	rel="stylesheet" />
 
-<title>Modifica Tavolo</title>
+<title>Inserisci Tavolo</title>
 
 </head>
 
@@ -31,14 +31,14 @@
 
 		<div class='card'>
 			<div class='card-header'>
-				<h5>Modifica Tavolo</h5>
+				<h5>Inserisci Tavolo</h5>
 			</div>
 			<div class='card-body'>
 
 				<form method="post"
-					action="${pageContext.request.contextPath}/ModificaTavoloServlet">
+					action="${pageContext.request.contextPath}/InserisciTavoloServlet">
 					<div class="form-row">
-					<input type="hidden" value="${requestScope.id }" name="id" id="id">
+					
 					<div class="form-group col-md-6">
 							<label>Esperienza minima </label> <input type="number"
 								name="esperienza" id="esperienza" class="form-control" value="${tavoloCampi.esperienzaMin }">
@@ -60,11 +60,10 @@
 
 					</div>
 					<a
-						href="${pageContext.request.contextPath}/CercaTavoloServlet"
+						href="${pageContext.request.contextPath}/gestione_tavolo/GestioneTavolo.jsp"
 						class='btn btn-outline-secondary' style='width: 80px'> Back </a>
-						
 					<button type="submit" name="submit" value="submit" id="submit"
-						class="btn btn-primary">Modifica</button>
+						class="btn btn-primary">Inserisci</button>
 
 				</form>
 

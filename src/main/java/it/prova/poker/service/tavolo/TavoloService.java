@@ -19,4 +19,8 @@ public interface TavoloService {
 	public List<Tavolo> findByExample(Tavolo tavolo);
 
 	public List<Tavolo> findByExample2(Tavolo tavolo);
+
+	public Tavolo caricaSingoloTavoloConCreatore(Long id);
+	
+	public Tavolo caricaSingoloTavoloConPartecipanti(Long id);
 }

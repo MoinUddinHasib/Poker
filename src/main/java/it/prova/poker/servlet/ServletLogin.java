@@ -62,7 +62,7 @@ public class ServletLogin extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		User uten=userService.caricaPerUsername(username);		
-		if(uten==null || !uten.getPassword().equals(password) || uten.getStato().equals(User.Stato.INATTIVO)
+		if(uten==null || !uten.getUsername().equals(username) || !uten.getPassword().equals(password) || uten.getStato().equals(User.Stato.INATTIVO)
 				|| uten.getStato().equals(User.Stato.CREATO)) {
 			request.setAttribute("errorMessage", "Accesso negato");
 			session.invalidate();

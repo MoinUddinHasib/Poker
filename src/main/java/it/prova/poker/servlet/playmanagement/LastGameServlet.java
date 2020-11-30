@@ -35,7 +35,7 @@ public class LastGameServlet extends HttpServlet {
 			request.getRequestDispatcher("/play_management/gioca.jsp").forward(request, response);
 			return;
 		}
-		response.sendRedirect("ServletLogOut");
+		response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 		return;
 	}
 

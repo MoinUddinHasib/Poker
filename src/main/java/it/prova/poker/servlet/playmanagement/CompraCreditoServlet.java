@@ -58,7 +58,7 @@ public class CompraCreditoServlet extends HttpServlet {
 		try {
 			u.setCreditoAccumulato(u.getCreditoAccumulato()+Integer.parseInt(importo));
 		} catch (NumberFormatException e) {
-			response.sendRedirect("ServletLogOut");
+			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
 		userService.aggiorna(u);

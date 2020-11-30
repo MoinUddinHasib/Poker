@@ -100,4 +100,14 @@ public class TavoloServiceImpl implements TavoloService {
 		return entityManager.createQuery(query, Tavolo.class).getResultList();
 	}
 
+	@Override
+	public Tavolo caricaSingoloTavoloConCreatore(Long id) {
+		return tavoloRepository.findWithCreatore(id);
+	}
+
+	@Override
+	public Tavolo caricaSingoloTavoloConPartecipanti(Long id) {
+		return tavoloRepository.findWithPartecipanti(id);
+	}
+
 }

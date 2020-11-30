@@ -29,6 +29,20 @@
 
 				<form method="post"
 					action="${pageContext.request.contextPath}/CercaTavoloServlet">
+					<%-- alert conferma --%>
+					<div
+						class="alert alert-success ${messaggioConferma!=null?'':'d-none' }"
+						role="alert">${messaggioConferma }</div>
+
+					<div
+						class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
+						role="alert">
+						${errorMessage}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 					<div class="form-row">
 
 						<div class="form-group col-md-6">

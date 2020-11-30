@@ -12,7 +12,6 @@
 
 <body>
 	
-	<jsp:include page="./navbar.jsp" />
 	<main role="main" class="container">
 
  		<%-- alert con lista errori --%>
@@ -58,6 +57,9 @@
 								id="password" class="form-control" value="${userCampi.password }">
 						</div>
 					</div>
+					<a
+						href="${pageContext.request.contextPath}/ServletLogin"
+						class='btn btn-outline-secondary' style='width: 80px'> Back </a>
 				<button type="submit" name="submit" value="submit" id="submit"
 						class="btn btn-primary">Registrati</button>
 				</form>

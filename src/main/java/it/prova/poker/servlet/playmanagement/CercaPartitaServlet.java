@@ -77,7 +77,7 @@ public class CercaPartitaServlet extends HttpServlet {
 			d=(data==null||data.isEmpty())?null:LocalDate.parse(data);
 			puntata=(puntataMinima==null||puntataMinima.isEmpty())?0:Integer.parseInt(puntataMinima);
 		} catch (NumberFormatException|DateTimeParseException  e) {
-			response.sendRedirect("/ServletLogOut");
+			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
 		Tavolo t=new Tavolo(u.getEsperienzaAccumulata(),puntata,denominazione==null?"":denominazione,u_creatore);

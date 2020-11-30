@@ -1,7 +1,7 @@
 package it.prova.poker.servlet.gestionetavolo;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,15 +14,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import it.prova.poker.model.Tavolo;
+import it.prova.poker.dto.TavoloDTO;
 import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
 
 /**
- * Servlet implementation class CercaTavoloServlet
+ * Servlet implementation class InserisciTavoloServlet
  */
-@WebServlet("/CercaTavoloServlet")
-public class CercaTavoloServlet extends HttpServlet {
+@WebServlet("/InserisciTavoloServlet")
+public class InserisciTavoloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
@@ -37,7 +37,7 @@ public class CercaTavoloServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaTavoloServlet() {
+    public InserisciTavoloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,35 +46,32 @@ public class CercaTavoloServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
+		request.getRequestDispatcher("/gestione_tavolo/form_tavolo.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User u=(User) session.getAttribute("user");
-		
+		HttpSession session=request.getSession();
+		User u= (User) session.getAttribute("user");
+		String esperienza=request.getParameter("esperienza");
 		String denominazione=request.getParameter("denominazione");
-		String data=request.getParameter("data");
 		String puntata=request.getParameter("puntata");
 		
-		if(denominazione==null || data==null || puntata==null) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
-		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
-		try {
-			t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
+		TavoloDTO tavoloDTO=new TavoloDTO(esperienza,puntata,denominazione,u);
+		
+		List<String> tavoloErrors = tavoloDTO.errors();
+		if (!tavoloErrors.isEmpty()) {
+			request.setAttribute("tavoloCampi", tavoloDTO);
+			request.setAttribute("tavoloErrors", tavoloErrors);
+			request.getRequestDispatcher("/gestione_tavolo/form_tavolo.jsp").forward(request, response);
 			return;
 		}
 		
-		request.setAttribute("listaTavoli",tavoloService.findByExample2(t));
-
-		request.getRequestDispatcher("/gestione_tavolo/results.jsp").forward(request, response);
+		tavoloService.inserisciNuovo(TavoloDTO.buildModelFromDto(tavoloDTO));
+		request.setAttribute("messaggioConferma","Tavolo creato");
+		request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
 	}
 
 }

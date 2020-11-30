@@ -31,7 +31,7 @@ public class Tavolo {
 	private String denominazione;
 	
 	@Column(name = "data_creazione")
-	private LocalDate dataCreazione = LocalDate.now().plusDays(1);
+	private LocalDate dataCreazione = LocalDate.now();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();

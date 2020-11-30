@@ -1,64 +1,71 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html lang="it">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Risultati Ricerca</title>
+<jsp:include page="../header.jsp" />
+
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
+<!-- style per le pagine diverse dalla index -->
+<link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet" />
+<title>Dettaglio Tavolo</title>
 </head>
 <body>
-
-	<div class="container">
-
-		<%@ include file="../header.jsp"%>
-
-		<div class="page-header">
-			<h3>Pagina dei Risultati</h3>
-		</div>
+	<jsp:include page="../navbar.jsp" />
+	
+	<main role="main" class="container">
+	
 		
-		<%-- alert conferma --%>
-		<div class="alert alert-success ${messaggioConferma!=null?'':'d-none' }" role="alert">
-			${messaggioConferma }
-		</div>
-
 		<div class='card'>
 		    <div class='card-header'>
-		        Visualizza dettaglio
+		        <h5>Dettaglio Tavolo</h5> 
 		    </div>
-		    
+
+		    <div class='card-body'>
+		    <a href="${pageContext.request.contextPath}/CercaTavoloServlet" class='btn btn-outline-secondary' style='width:80px'>
+		          Back
+		        </a>		    
 		
 		    <div class='card-body'>
 		    	<dl class="row">
 				  <dt class="col-sm-3 text-right">ID:</dt>
-				  <dd class="col-sm-9">${municipio.id}</dd>
+				  <dd class="col-sm-9">${tavolo.id}</dd>
 		    	</dl>
 		    	
 		    	<dl class="row">
-				  <dt class="col-sm-3 text-right">Descrizione:</dt>
-				  <dd class="col-sm-9">${municipio.descrizione}</dd>
+				  <dt class="col-sm-3 text-right">Esperienza minima:</dt>
+				  <dd class="col-sm-9">${tavolo.esperienzaMin}</dd>
 		    	</dl>
 		    	
 		    	<dl class="row">
-				  <dt class="col-sm-3 text-right">Codice:</dt>
-				  <dd class="col-sm-9">${municipio.codice}</dd>
+				  <dt class="col-sm-3 text-right">Puntata minima:</dt>
+				  <dd class="col-sm-9">${tavolo.cifraMin}</dd>
 		    	</dl>
 		    	
 		    	<dl class="row">
-				  <dt class="col-sm-3 text-right">Ubicazione:</dt>
-				  <dd class="col-sm-9">${municipio.ubicazione}</dd>
+				  <dt class="col-sm-3 text-right">Denominazione:</dt>
+				  <dd class="col-sm-9">${tavolo.denominazione}</dd>
+		    	</dl>
+		    	
+		    	<dl class="row">
+				  <dt class="col-sm-3 text-right">Data creazione:</dt>
+				  <dd class="col-sm-9">${tavolo.dataCreazione}</dd>
+		    	</dl>
+		    	
+		    	<dl class="row">
+				  <dt class="col-sm-3 text-right">Creatore:</dt>
+				   <dd class="col-sm-9">${tavolo.user_creatore.username}</dd> 
 		    	</dl>
 		    	
 		    </div>
 		    
-		</div>
-		<div class="form-group">        
-	      <div class="col-sm-offset-2 col-sm-10">
-	        <a href="PrepareInsertMunicipioServlet" class="btn btn-primary btn-md">Inserisci Nuovo Elemento</a>
-	      </div>
-	    </div>
-
-	</div>
+		   
+			<!-- end card-body -->			   
+		    </div>
+		</div>	
+	
+	<!-- end container -->	
+	</main>
+	<jsp:include page="../footer.jsp" />
+	
 </body>
 </html>

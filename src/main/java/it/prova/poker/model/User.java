@@ -43,7 +43,7 @@ public class User {
 	private String password;
 	
 	@Column(name = "data_registrazione")
-	private LocalDate dataRegistrazione = LocalDate.now().plusDays(1);
+	private LocalDate dataRegistrazione = LocalDate.now();
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stato")

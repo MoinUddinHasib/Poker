@@ -1,7 +1,6 @@
 package it.prova.poker.servlet.gestionetavolo;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -9,25 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import it.prova.poker.model.Tavolo;
-import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
 
 /**
- * Servlet implementation class CercaTavoloServlet
+ * Servlet implementation class DettaglioTavoloServlet
  */
-@WebServlet("/CercaTavoloServlet")
-public class CercaTavoloServlet extends HttpServlet {
+@WebServlet("/DettaglioTavoloServlet")
+public class DettaglioTavoloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	private TavoloService tavoloService;
-
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -37,7 +34,7 @@ public class CercaTavoloServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaTavoloServlet() {
+    public DettaglioTavoloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,35 +43,23 @@ public class CercaTavoloServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
+		long id=0;
+		try {
+			id = Long.parseLong(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
+			return;
+		}
+		Tavolo tavolo= tavoloService.caricaSingoloTavoloConCreatore(id);
+		request.setAttribute("tavolo", tavolo);
+		request.getRequestDispatcher("/gestione_tavolo/show.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User u=(User) session.getAttribute("user");
-		
-		String denominazione=request.getParameter("denominazione");
-		String data=request.getParameter("data");
-		String puntata=request.getParameter("puntata");
-		
-		if(denominazione==null || data==null || puntata==null) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
-		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
-		try {
-			t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
-		
-		request.setAttribute("listaTavoli",tavoloService.findByExample2(t));
 
-		request.getRequestDispatcher("/gestione_tavolo/results.jsp").forward(request, response);
 	}
 
 }
