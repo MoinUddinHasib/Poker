@@ -1,7 +1,6 @@
 package it.prova.poker.model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +43,7 @@ public class User {
 	private String password;
 	
 	@Column(name = "data_registrazione")
-	private LocalDate dataRegistrazione;
+	private LocalDate dataRegistrazione = LocalDate.now().plusDays(1);
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stato")
@@ -55,14 +54,14 @@ public class User {
 	@Column(name = "credito_accumulato")
 	private Integer creditoAccumulato = 0;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tavolo_fk_gioco")
 	private Tavolo tavolo_gioco;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user_creatore")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user_creatore")
 	private Set<Tavolo> tavoli_creati= new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_ruolo",
 	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "id"))
@@ -78,11 +77,7 @@ public class User {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
-		
-		String data=LocalDate.now().toString();
-		String[] dat=data.split("-");
-		dat[2]=String.valueOf(Integer.parseInt(dat[2])+1);
-		dataRegistrazione = LocalDate.parse(dat[0]+"-"+dat[1]+"-"+dat[2]);
+
 	}
 
 	public Long getId() {

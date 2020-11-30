@@ -71,17 +71,17 @@ public class TavoloServiceImpl implements TavoloService {
 	@Override
 	public List<Tavolo> findByExample(Tavolo example) {
 		String query = "from Tavolo t where t.esperienzaMin <= "+example.getEsperienzaMin();
-
+//		testare partecipanti
 		if (example.getCifraMin()!=null)
 			query += " and t.cifraMin >= " + example.getCifraMin();
 		if (StringUtils.isNotEmpty(example.getDenominazione()))
 			query += " and t.denominazione like '%" + example.getDenominazione() + "%' ";
 		if (example.getDataCreazione() != null)
-			query += " and t.dataCreazione = " + example.getDataCreazione();
+			query += " and t.dataCreazione = '" + example.getDataCreazione()+"'";
 		if (!example.getUsers().isEmpty())
-			query += " and t.users = " + example.getUsers().iterator().next();
+			query += " and t.users u.id = " + example.getUsers().iterator().next().getId();
 		if (example.getUser_creatore()!=null)
-			query += " and t.user_creatore" + example.getUser_creatore();
+			query += " and t.user_creatore.id = " + example.getUser_creatore().getId();
 
 		return entityManager.createQuery(query, Tavolo.class).getResultList();
 	}

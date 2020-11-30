@@ -10,7 +10,16 @@
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css"
 	rel="stylesheet" />
+<style>
+.ui-autocomplete-loading {
+	background: white url("assets/img/anim_16x16.gif") right center no-repeat;
+}
+</style>
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/assets/css/jqueryUI/jquery-ui.min.css" />
 <title>Cerca Partita</title>
+
 </head>
 
 <body>

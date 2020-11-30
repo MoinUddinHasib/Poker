@@ -31,7 +31,7 @@
         <a class="nav-link" href="ServletLogOut">Log-Out <span class="sr-only">(current)</span></a>
         </c:if>
       </li>
-			<li>Benvenuto  ${sessionScope.user.nome } ${sessionScope.user.cognome } ${sessionScope.user.username }</li>
+			<li>Benvenuto  ${sessionScope.user.nome } ${sessionScope.user.cognome } Username: ${sessionScope.user.username } Credito: ${sessionScope.user.creditoAccumulato }</li>
 		</ul>
 		
 		<form class="form-inline my-2 my-lg-0">

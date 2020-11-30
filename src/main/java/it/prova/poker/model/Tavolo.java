@@ -1,7 +1,6 @@
 package it.prova.poker.model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,12 +31,12 @@ public class Tavolo {
 	private String denominazione;
 	
 	@Column(name = "data_creazione")
-	private LocalDate dataCreazione;
+	private LocalDate dataCreazione = LocalDate.now().plusDays(1);
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_fk_creatore")
 	private User user_creatore;
 
@@ -45,18 +44,13 @@ public class Tavolo {
 		super();
 	}
 
-	public Tavolo(Long id, Integer esperienzaMin, Integer cifraMin, String denominazione, User user_creatore) {
+	public Tavolo(Integer esperienzaMin, Integer cifraMin, String denominazione, User user_creatore) {
 		super();
-		this.id = id;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
 		this.user_creatore = user_creatore;
 		
-		String data=LocalDate.now().toString();
-		String[] dat=data.split("-");
-		dat[2]=String.valueOf(Integer.parseInt(dat[2])+1);
-		dataCreazione = LocalDate.parse(dat[0]+"-"+dat[1]+"-"+dat[2]);
 	}
 
 	public Long getId() {
@@ -126,9 +120,8 @@ public class Tavolo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cifraMin;
+		result = prime * result + ((cifraMin == null) ? 0 : cifraMin.hashCode());
 		result = prime * result + ((denominazione == null) ? 0 : denominazione.hashCode());
-		result = prime * result + esperienzaMin;
 		return result;
 	}
 
@@ -141,14 +134,15 @@ public class Tavolo {
 		if (getClass() != obj.getClass())
 			return false;
 		Tavolo other = (Tavolo) obj;
-		if (cifraMin != other.cifraMin)
+		if (cifraMin == null) {
+			if (other.cifraMin != null)
+				return false;
+		} else if (!cifraMin.equals(other.cifraMin))
 			return false;
 		if (denominazione == null) {
 			if (other.denominazione != null)
 				return false;
 		} else if (!denominazione.equals(other.denominazione))
-			return false;
-		if (esperienzaMin != other.esperienzaMin)
 			return false;
 		return true;
 	}
