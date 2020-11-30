@@ -70,8 +70,8 @@ public class TavoloServiceImpl implements TavoloService {
 	
 	@Override
 	public List<Tavolo> findByExample(Tavolo example) {
-		String query = "from Tavolo t where t.esperienzaMin <= "+example.getEsperienzaMin();
-//		testare partecipanti
+		String query = "from Tavolo t left join fetch t.users u left join fetch t.user_creatore where t.esperienzaMin <= "+example.getEsperienzaMin();
+
 		if (example.getCifraMin()!=null)
 			query += " and t.cifraMin >= " + example.getCifraMin();
 		if (StringUtils.isNotEmpty(example.getDenominazione()))
@@ -79,9 +79,23 @@ public class TavoloServiceImpl implements TavoloService {
 		if (example.getDataCreazione() != null)
 			query += " and t.dataCreazione = '" + example.getDataCreazione()+"'";
 		if (!example.getUsers().isEmpty())
-			query += " and t.users u.id = " + example.getUsers().iterator().next().getId();
+			query += " and u.id = " + example.getUsers().iterator().next().getId();
 		if (example.getUser_creatore()!=null)
 			query += " and t.user_creatore.id = " + example.getUser_creatore().getId();
+
+		return entityManager.createQuery(query, Tavolo.class).getResultList();
+	}
+
+	@Override
+	public List<Tavolo> findByExample2(Tavolo example) {
+		String query = "from Tavolo t join fetch t.user_creatore where t.user_creatore.id = "+example.getUser_creatore().getId();
+
+		if (StringUtils.isNotEmpty(example.getDenominazione()))
+			query += " and t.denominazione like '%" + example.getDenominazione() + "%' ";
+		if (example.getDataCreazione() != null)
+			query += " and t.dataCreazione = '" + example.getDataCreazione()+"'";
+		if (example.getCifraMin()!=null)
+			query += " and t.cifraMin >= " + example.getCifraMin();
 
 		return entityManager.createQuery(query, Tavolo.class).getResultList();
 	}

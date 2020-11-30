@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet" />
-<title>Cerca Partita</title>
+<title>Lista Partita</title>
 </head>
 <body>
 	<jsp:include page="../navbar.jsp" />

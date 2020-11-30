@@ -17,4 +17,6 @@ public interface TavoloService {
 	public void rimuovi(Tavolo tavolo);
 	
 	public List<Tavolo> findByExample(Tavolo tavolo);
+
+	public List<Tavolo> findByExample2(Tavolo tavolo);
 }

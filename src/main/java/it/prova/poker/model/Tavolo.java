@@ -33,10 +33,10 @@ public class Tavolo {
 	@Column(name = "data_creazione")
 	private LocalDate dataCreazione = LocalDate.now().plusDays(1);
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tavolo_gioco")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk_creatore")
 	private User user_creatore;
 

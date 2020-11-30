@@ -54,14 +54,14 @@ public class User {
 	@Column(name = "credito_accumulato")
 	private Integer creditoAccumulato = 0;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tavolo_fk_gioco")
 	private Tavolo tavolo_gioco;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user_creatore")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user_creatore")
 	private Set<Tavolo> tavoli_creati= new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_ruolo",
 	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "id"))

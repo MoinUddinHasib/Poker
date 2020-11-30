@@ -41,7 +41,7 @@
 
 						 <div class="form-group col-md-6">
 							<label>Importo </label> <input type="number" name="importo"
-								id="importo" class="form-control" >
+								id="importo" class="form-control" required>
 
 						</div>
 

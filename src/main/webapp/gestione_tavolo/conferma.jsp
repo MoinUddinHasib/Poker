@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<!doctype html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="it">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Inserisci Municipio</title>
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/favicon.ico"
-	type="image/x-icon" />
+<jsp:include page="../header.jsp" />
+
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
+<!-- style per le pagine diverse dalla index -->
+<link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet" />
+<title>Cancella Tavolo</title>
 </head>
 <body>
 
@@ -17,17 +16,17 @@
 		<%@ include file="../header.jsp"%>
 
 		<div class="page-header">
-			<h3>Conferma Eliminazione Municipio</h3>
+			<h3>Conferma Eliminazione Tavolo</h3>
 		</div>
 
 		<a
-			href="${pageContext.request.contextPath}/ExecuteCancellaMunicipioServlet?idMunicipio=<%=request.getParameter("idMunicipio")%>"
+			href="${pageContext.request.contextPath}/CancellaTavoloServlet?id=<%=request.getParameter("id")%>"
 			class="btn btn-info">Elimina</a>
 
 	</div>
 	<!-- /.container -->
 
 
-
+<jsp:include page="../footer.jsp" />
 </body>
 </html>

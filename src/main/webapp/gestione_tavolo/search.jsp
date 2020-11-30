@@ -1,53 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html lang="it">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Ricerca Municipio</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
+<jsp:include page="../header.jsp" />
+
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/favicon.ico"
+	type="image/x-icon" />
+<!-- style per le pagine diverse dalla index -->
+<link href="${pageContext.request.contextPath}/assets/css/global.css"
+	rel="stylesheet" />
+
+<title>Cerca Tavolo</title>
+
 </head>
+
 <body>
 
-<div class="container">
-
-   <%@ include file="../header.jsp" %>
-      
-    <div class="page-header">
-	  <h3>Pagina di Ricerca</h3>
-	</div>
-
-      	<form class="form-horizontal" action="ExecuteSearchMunicipioServlet" method="post">
-      		<div class="form-group">
-      			<label class="control-label col-sm-2" for="descrizioneInputId">Descrizione:</label>
-	    		<div class="col-sm-4">
-					<input class="form-control" type="text" id="descrizioneInputId" name="descrizioneInput" >
-			 	</div>
-  			</div>
-  			<div class="form-group">
-      			<label class="control-label col-sm-2" for="codiceInputId">Codice:</label>
-	    		<div class="col-sm-4">
-					<input class="form-control" type="text" id="codiceInputId" name="codiceInput" >
-			 	</div>
-  			</div>
-			<div class="form-group">
-      			<label class="control-label col-sm-2" for="ubicazioneInputId">Ubicazione:</label>
-	    		<div class="col-sm-4">
-					<input class="form-control" type="text" id="ubicazioneInputId" name="ubicazioneInput" >
-			 	</div>
-  			</div>
-  			
-  			<div class="form-group">        
-		      <div class="col-sm-offset-2 col-sm-10">
-		        <button type="submit" class="btn btn-primary btn-md">Effetua Ricerca</button>
-		        <a href="PrepareInsertMunicipioServlet" class="btn btn-primary btn-md">Inserisci Nuovo Elemento</a>
-		      </div>
-		    </div>
-		</form>
-		
-    </div><!-- /.container -->
+	<jsp:include page="../navbar.jsp" />
+	<main role="main" class="container">
 
 
+		<div class='card'>
+			<div class='card-header'>
+				<h5>Cerca Tavolo</h5>
+			</div>
+			<div class='card-body'>
+
+				<form method="post"
+					action="${pageContext.request.contextPath}/CercaTavoloServlet">
+					<div class="form-row">
+
+						<div class="form-group col-md-6">
+							<label>Denominazione </label> <input type="text"
+								name="denominazione" id="denominazione" class="form-control">
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Data </label> <input type="date" name="data" id="data"
+								class="form-control">
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Puntata minima </label> <input type="number"
+								name="puntata" id="puntata" class="form-control">
+
+						</div>
+
+					</div>
+					<a
+						href="${pageContext.request.contextPath}/gestione_tavolo/GestioneTavolo.jsp"
+						class='btn btn-outline-secondary' style='width: 80px'> Back </a>
+					<button type="submit" name="submit" value="submit" id="submit"
+						class="btn btn-primary">Cerca</button>
+
+				</form>
+
+				<!-- end card-body -->
+			</div>
+		</div>
+
+		<!-- end container -->
+	</main>
+	<jsp:include page="../footer.jsp" />
 
 </body>
 </html>

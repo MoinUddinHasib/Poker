@@ -1,8 +1,7 @@
-package it.prova.poker.servlet.playmanagement;
+package it.prova.poker.servlet.gestionetavolo;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,20 +17,16 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import it.prova.poker.model.Tavolo;
 import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
-import it.prova.poker.service.user.UserService;
 
 /**
- * Servlet implementation class CercaPartitaServlet
+ * Servlet implementation class CercaTavoloServlet
  */
-@WebServlet("/CercaPartitaServlet")
-public class CercaPartitaServlet extends HttpServlet {
+@WebServlet("/CercaTavoloServlet")
+public class CercaTavoloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	private TavoloService tavoloService;
-	
-	@Autowired
-	private UserService userService;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -42,7 +37,7 @@ public class CercaPartitaServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaPartitaServlet() {
+    public CercaTavoloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +46,7 @@ public class CercaPartitaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/play_management/form_cerca.jsp").forward(request, response);
+		request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
 	}
 
 	/**
@@ -63,33 +58,23 @@ public class CercaPartitaServlet extends HttpServlet {
 		
 		String denominazione=request.getParameter("denominazione");
 		String data=request.getParameter("data");
-		String puntataMinima=request.getParameter("puntata");
-		String creatoreId=request.getParameter("creatoreId");
-		String partecipanteId=request.getParameter("partecipanteId");
-
-		User u_creatore=null;
-		User u_partecipante=null;
-		LocalDate d=null;
-		Integer puntata=null;
-		try {
-			u_creatore=userService.caricaSingoloUser((creatoreId==null||creatoreId.isEmpty())?-1:Long.parseLong(creatoreId));
-			u_partecipante=userService.caricaSingoloUser((partecipanteId==null||partecipanteId.isEmpty())?-1:Long.parseLong(partecipanteId));
-			d=(data==null||data.isEmpty())?null:LocalDate.parse(data);
-			puntata=(puntataMinima==null||puntataMinima.isEmpty())?0:Integer.parseInt(puntataMinima);
-		} catch (NumberFormatException|DateTimeParseException  e) {
+		String puntata=request.getParameter("puntata");
+		
+		if(denominazione==null || data==null || puntata==null) {
 			response.sendRedirect("/ServletLogOut");
 			return;
 		}
-		Tavolo t=new Tavolo(u.getEsperienzaAccumulata(),puntata,denominazione==null?"":denominazione,u_creatore);
-		t.setDataCreazione(d);
-		if(u_partecipante!=null) {
-			t.getUsers().add(u_partecipante);
+		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
+		try {
+			t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));
+		} catch (Exception e) {
+			response.sendRedirect("/ServletLogOut");
+			return;
 		}
 		
-		request.setAttribute("listaTavoli",tavoloService.findByExample(t));
+		request.setAttribute("listaTavoli",tavoloService.findByExample2(t));
 
-		request.getRequestDispatcher("/play_management/results.jsp").forward(request, response);
-
+		request.getRequestDispatcher("/gestione_tavolo/results.jsp").forward(request, response);
 	}
 
 }
