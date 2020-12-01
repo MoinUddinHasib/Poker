@@ -14,6 +14,7 @@ public class UserDTO {
 	private String cognome;
 	private String username;
 	private String password;
+	private String stato;
 	
 	public UserDTO() {
 	}
@@ -23,6 +24,14 @@ public class UserDTO {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
+	}
+
+	public String getStato() {
+		return stato;
+	}
+
+	public void setStato(String stato) {
+		this.stato = stato;
 	}
 
 	public Long getId() {

@@ -31,7 +31,7 @@ public class Tavolo {
 	private String denominazione;
 	
 	@Column(name = "data_creazione")
-	private LocalDate dataCreazione = LocalDate.now();
+	private LocalDate dataCreazione;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tavolo_gioco")
 	private Set<User> users= new HashSet<>();
@@ -50,7 +50,7 @@ public class Tavolo {
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
 		this.user_creatore = user_creatore;
-		
+		dataCreazione = LocalDate.now();
 	}
 
 	public Long getId() {

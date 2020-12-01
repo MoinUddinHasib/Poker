@@ -43,16 +43,16 @@ public class User {
 	private String password;
 	
 	@Column(name = "data_registrazione")
-	private LocalDate dataRegistrazione = LocalDate.now();
+	private LocalDate dataRegistrazione;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stato")
-	private Stato stato = Stato.CREATO;
+	private Stato stato;
 	
 	@Column(name = "esperienza_accumulata")
-	private Integer esperienzaAccumulata = 0;
+	private Integer esperienzaAccumulata;
 	@Column(name = "credito_accumulato")
-	private Integer creditoAccumulato = 0;
+	private Integer creditoAccumulato;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tavolo_fk_gioco")
@@ -77,7 +77,10 @@ public class User {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
-
+		dataRegistrazione = LocalDate.now();
+		esperienzaAccumulata = 0;
+		creditoAccumulato  = 0;
+		stato = Stato.CREATO;
 	}
 
 	public Long getId() {

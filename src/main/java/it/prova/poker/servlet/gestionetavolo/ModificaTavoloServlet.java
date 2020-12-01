@@ -53,7 +53,7 @@ public class ModificaTavoloServlet extends HttpServlet {
 		try {
 			id = Long.parseLong(request.getParameter("id"));
 		} catch (NumberFormatException e) {
-			response.sendRedirect("ServletLogOut");
+			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
 		request.setAttribute("id", id);

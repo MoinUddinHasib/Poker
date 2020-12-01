@@ -69,6 +69,7 @@ public class TavoloServiceImpl implements TavoloService {
 	}
 	
 	@Override
+	@Transactional
 	public List<Tavolo> findByExample(Tavolo example) {
 		String query = "from Tavolo t left join fetch t.users u left join fetch t.user_creatore where t.esperienzaMin <= "+example.getEsperienzaMin();
 
@@ -87,6 +88,7 @@ public class TavoloServiceImpl implements TavoloService {
 	}
 
 	@Override
+	@Transactional
 	public List<Tavolo> findByExample2(Tavolo example) {
 		String query = "from Tavolo t join fetch t.user_creatore where t.user_creatore.id = "+example.getUser_creatore().getId();
 
@@ -101,11 +103,13 @@ public class TavoloServiceImpl implements TavoloService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Tavolo caricaSingoloTavoloConCreatore(Long id) {
 		return tavoloRepository.findWithCreatore(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Tavolo caricaSingoloTavoloConPartecipanti(Long id) {
 		return tavoloRepository.findWithPartecipanti(id);
 	}

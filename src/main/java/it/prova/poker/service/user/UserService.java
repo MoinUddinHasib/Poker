@@ -20,4 +20,8 @@ public interface UserService {
 
 	public List<User> cercaByUsernameILike(String term);
 
+	public List<User> findByExample(User user);
+
+	public User caricaSingoloUserConRuoli(long id);
+
 }
