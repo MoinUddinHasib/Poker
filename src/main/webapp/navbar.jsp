@@ -28,7 +28,7 @@
 			<li class="nav-item active"></li>
 			<li class="nav-item active">
       <c:if test="${ sessionScope.user != null}">
-        <a class="nav-link" href="ServletLogOut">Log-Out <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/ServletLogOut">Log-Out <span class="sr-only">(current)</span></a>
         </c:if>
       </li>
 			<li>Benvenuto  ${sessionScope.user.nome } ${sessionScope.user.cognome } Username: ${sessionScope.user.username } Credito: ${sessionScope.user.creditoAccumulato }</li>

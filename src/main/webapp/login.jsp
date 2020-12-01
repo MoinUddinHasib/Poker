@@ -44,7 +44,7 @@
 	</head>
 	<body class="text-center">
 		
-	   	<form class="form-signin" action="ServletLogin" method="post" novalidate>
+	   	<form class="form-signin" action="ServletLogin" method="post">
 	   	
 		   	<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
 			  ${errorMessage}

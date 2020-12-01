@@ -50,6 +50,7 @@
 	      <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CompraCreditoServlet" role="button">Compra Credito &raquo;</a></p>
 	      <p><c:if test = "${ sessionScope.user.tavolo_gioco != null }"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/LastGameServlet" role="button">Go To Last Game &raquo;</a></c:if></p>
 	      <p><c:if test = "${ sessionScope.user.tavolo_gioco == null }"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CercaPartitaServlet" role="button">Ricerca Partita &raquo;</a></c:if></p>
+	      <p><a class='btn btn-outline-secondary' href="${pageContext.request.contextPath}/home.jsp" role="button">Back &raquo;</a></p>
 	    </div>
 	  </div>
 	  

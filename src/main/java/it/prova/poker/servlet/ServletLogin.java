@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import it.prova.poker.model.Ruolo;
 import it.prova.poker.model.User;
+import it.prova.poker.model.Ruolo.Tipo;
 import it.prova.poker.service.user.UserService;
 
 /**
@@ -68,6 +70,15 @@ public class ServletLogin extends HttpServlet {
 			session.invalidate();
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
+		}
+		uten=userService.caricaSingoloUserConRuoli(uten.getId());
+		for(Ruolo r: uten.getRuoli()) {
+			if(r.getTipo().equals(Tipo.ADMIN_ROLE)) {
+				session.setAttribute("admin_assert", true);
+			}
+			if(r.getTipo().equals(Tipo.SPECIAL_PLAYER_ROLE)) {
+				session.setAttribute("special_assert", true);
+			}
 		}
 		session.setAttribute("user", uten);
 		request.getRequestDispatcher("home.jsp").forward(request, response);

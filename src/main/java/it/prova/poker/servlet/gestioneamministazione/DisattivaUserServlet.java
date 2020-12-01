@@ -54,6 +54,7 @@ public class DisattivaUserServlet extends HttpServlet {
 		
 		User u= userService.caricaSingoloUser(id);
 		u.setStato(Stato.INATTIVO);
+		u.setTavolo_gioco(null);
 		userService.aggiorna(u);
 		request.setAttribute("messaggioConferma","User disattivato");
 		request.getRequestDispatcher("/gestione_amministrazione/search.jsp").forward(request, response);

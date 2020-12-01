@@ -48,8 +48,8 @@
 	      <h1 class="display-3">Poker</h1>
 	      <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
 	      <p><a class="btn btn-primary btn-lg" href="play_management/PlayManagement.jsp" role="button">Play Management &raquo;</a></p>
-	      <p><a class="btn btn-primary btn-lg" href="gestione_tavolo/GestioneTavolo.jsp" role="button">Gestione Tavolo &raquo;</a></p>
-	      <p><c:if test = "true"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CercaUserServlet" role="button">Gestione Amministrazione &raquo;</a></c:if></p>
+	      <p><c:if test = "${(sessionScope.admin_assert) || (sessionScope.special_assert)}"><a class="btn btn-primary btn-lg" href="gestione_tavolo/GestioneTavolo.jsp" role="button">Gestione Tavolo &raquo;</a></c:if></p>
+	      <p><c:if test = "${sessionScope.admin_assert }"><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/CercaUserServlet" role="button">Gestione Amministrazione &raquo;</a></c:if></p>
 	    </div>
 	  </div>
 	  
