@@ -108,4 +108,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findWithRuoli(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public User caricaSingoloUserConPartita(long id) {
+		return userRepository.findWithGame(id);
+	}
+
 }

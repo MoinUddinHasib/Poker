@@ -1,5 +1,6 @@
 package it.prova.poker.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class TavoloDTO {
 	private String cifraMin;
 	private String denominazione;
 	private User user_creatore;
+	private String data;
+	private String idUser;
+	private String idPartecipante;
 
 	public TavoloDTO() {
 		super();
@@ -26,6 +30,37 @@ public class TavoloDTO {
 		this.denominazione = denominazione;
 		this.user_creatore = user_creatore;
 	}
+	
+	public TavoloDTO(String denominazione, String data, String cifraMin) {
+		this.denominazione=denominazione;
+		this.data=data;
+		this.cifraMin=cifraMin;
+	}
+
+	public TavoloDTO(String cifraMin, String denominazione, String data, String idUser, String idPartecipante) {
+		super();
+		this.cifraMin = cifraMin;
+		this.denominazione = denominazione;
+		this.data = data;
+		this.idUser = idUser;
+		this.idPartecipante = idPartecipante;
+	}
+
+	public String getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+
+	public String getIdPartecipante() {
+		return idPartecipante;
+	}
+
+	public void setIdPartecipante(String idPartecipante) {
+		this.idPartecipante = idPartecipante;
+	}
 
 	public Long getId() {
 		return id;
@@ -33,6 +68,14 @@ public class TavoloDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	public String getEsperienzaMin() {
@@ -76,6 +119,41 @@ public class TavoloDTO {
 		if(StringUtils.isBlank(this.denominazione))
 			result.add("Il campo denominazione non può essere vuoto");
 		return result;
+	}
+	
+	public List<String> errorsSearch(){
+		List<String> result = new ArrayList<String>();
+		if(denominazione==null)
+			result.add("Il campo denominazione non è valido");
+		if(data == null || (!data.isEmpty() && isNaD(data)))
+			result.add("Il campo data non è valido");
+		if(cifraMin==null || (!cifraMin.isEmpty() && !StringUtils.isNumeric(cifraMin)))
+			result.add("Il campo puntata minima non è valida");
+		return result;
+	}
+	
+	public List<String> errorsSearchGame() {
+		List<String> result = new ArrayList<String>();
+		if(denominazione==null)
+			result.add("Il campo denominazione non è valido");
+		if(data == null || (!data.isEmpty() && isNaD(data)))
+			result.add("Il campo data non è valido");
+		if(cifraMin==null || (!cifraMin.isEmpty() && !StringUtils.isNumeric(cifraMin)))
+			result.add("Il campo puntata minima non è valida");
+		if(idUser==null || (!idUser.isEmpty() && !StringUtils.isNumeric(idUser)))
+			result.add("Il campo creatore non è valido");
+		if(idPartecipante==null || (!idPartecipante.isEmpty() && !StringUtils.isNumeric(idPartecipante)))
+			result.add("Il campo partecipante non è valido");
+		return result;
+	}
+
+	private boolean isNaD(String data) {
+		try {
+			LocalDate.parse(data);
+		} catch (Exception e) {
+			return true;
+		}
+		return false;
 	}
 
 	public static Tavolo buildModelFromDto(TavoloDTO tavoloDTO) {

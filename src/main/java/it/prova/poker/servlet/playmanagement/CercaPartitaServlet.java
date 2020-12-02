@@ -2,7 +2,7 @@ package it.prova.poker.servlet.playmanagement;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import it.prova.poker.dto.TavoloDTO;
 import it.prova.poker.model.Tavolo;
 import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
@@ -73,16 +74,23 @@ public class CercaPartitaServlet extends HttpServlet {
 		User u_partecipante=null;
 		LocalDate d=null;
 		Integer puntata=null;
-		//Qui i DTO non si usano perchè i campi possono essere vuoti
-		try {
-			u_creatore=userService.caricaSingoloUser((creatoreId==null||creatoreId.isEmpty())?-1:Long.parseLong(creatoreId));
-			u_partecipante=userService.caricaSingoloUser((partecipanteId==null||partecipanteId.isEmpty())?-1:Long.parseLong(partecipanteId));
-			d=(data==null||data.isEmpty())?null:LocalDate.parse(data);
-			puntata=(puntataMinima==null||puntataMinima.isEmpty())?0:Integer.parseInt(puntataMinima);
-		} catch (NumberFormatException|DateTimeParseException  e) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
+
+		TavoloDTO tavoloDTO=new TavoloDTO(puntataMinima,denominazione,data,creatoreId,partecipanteId);
+		
+		List<String> tavoloErrors = tavoloDTO.errorsSearchGame();
+
+		if (!tavoloErrors.isEmpty()) {
+			request.setAttribute("tavoloCampi", tavoloDTO);
+			request.setAttribute("tavoloErrors", tavoloErrors);
+			request.getRequestDispatcher("/play_management/form_cerca.jsp").forward(request, response);
 			return;
 		}
+
+		u_creatore=userService.caricaSingoloUser(creatoreId.isEmpty()?-1:Long.parseLong(creatoreId));
+		u_partecipante=userService.caricaSingoloUser(partecipanteId.isEmpty()?-1:Long.parseLong(partecipanteId));
+		d=data.isEmpty()?null:LocalDate.parse(data);
+		puntata=puntataMinima.isEmpty()?0:Integer.parseInt(puntataMinima);
+
 		if((!creatoreId.isEmpty() && !userService.caricaSingoloUser(Long.parseLong(creatoreId)).equals(userService.caricaPerUsername(creatoreUsername))) ||
 				(!creatoreUsername.isEmpty() && u_creatore==null) ) {
 			request.setAttribute("errorMessage", "selezione non valida");
@@ -96,7 +104,6 @@ public class CercaPartitaServlet extends HttpServlet {
 			request.getRequestDispatcher("/play_management/form_cerca.jsp").forward(request, response);
 			return;
 		}
-
 		
 		Tavolo t=new Tavolo(u.getEsperienzaAccumulata(),puntata,denominazione==null?"":denominazione,u_creatore);
 		t.setDataCreazione(d);

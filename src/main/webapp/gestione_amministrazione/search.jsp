@@ -27,6 +27,15 @@
 			</div>
 			<div class='card-body'>
 
+				<div class="alert alert-danger ${not empty userErrors?'':'d-none' }"
+					role="alert">
+					<c:forEach var="errorItem" items="${userErrors }">
+						<ul>
+							<li>${errorItem }</li>
+						</ul>
+					</c:forEach>
+				</div>
+
 				<form method="post"
 					action="${pageContext.request.contextPath}/CercaUserServlet">
 					<%-- alert conferma --%>
@@ -46,34 +55,33 @@
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
-							<label>Nome </label> <input type="text"
-								name="nome" id="nome" class="form-control">
-
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label>Cognome </label> <input type="text"
-								name="cognome" id="cognome" class="form-control">
-
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label>Username </label> <input type="text"
-								name="username" id="username" class="form-control">
+							<label>Nome </label> <input type="text" name="nome" id="nome"
+								class="form-control" value="${userCampi.nome }">
 
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Data Registrazione</label> <input type="date" name="data" id="data"
-								class="form-control">
+							<label>Cognome </label> <input type="text" name="cognome"
+								id="cognome" class="form-control" value="${userCampi.cognome }">
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Username </label> <input type="text" name="username"
+								id="username" class="form-control" value="${userCampi.username }">
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Data Registrazione</label> <input type="date" name="data"
+								id="data" class="form-control" value="${userCampi.data }">
 
 						</div>
 
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<label>Stato </label> 
-							<select name="stato" class="form-control">
+							<label>Stato </label> <select name="stato" class="form-control">
 								<c:forEach items="${requestScope.stati}" var="stato">
 									<option value="${stato}">${stato}</option>
 								</c:forEach>
@@ -85,8 +93,7 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<label>Ruolo </label> 
-							<select name="ruolo" class="form-control">
+							<label>Ruolo </label> <select name="ruolo" class="form-control" >
 								<c:forEach items="${requestScope.ruoli}" var="ruolo">
 									<option value="${ruolo.id }">${ruolo.tipo }</option>
 								</c:forEach>
@@ -96,8 +103,7 @@
 						</div>
 
 					</div>
-					<a
-						href="${pageContext.request.contextPath}/home.jsp"
+					<a href="${pageContext.request.contextPath}/home.jsp"
 						class='btn btn-outline-secondary' style='width: 80px'> Back </a>
 					<button type="submit" name="submit" value="submit" id="submit"
 						class="btn btn-primary">Cerca</button>

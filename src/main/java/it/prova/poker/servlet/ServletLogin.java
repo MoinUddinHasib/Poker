@@ -80,6 +80,7 @@ public class ServletLogin extends HttpServlet {
 				session.setAttribute("special_assert", true);
 			}
 		}
+		uten=userService.caricaSingoloUserConPartita(uten.getId());
 		session.setAttribute("user", uten);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}

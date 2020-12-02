@@ -3,6 +3,7 @@ package it.prova.poker.servlet.gestioneamministazione;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import it.prova.poker.dto.UserDTO;
 import it.prova.poker.model.Ruolo;
 import it.prova.poker.model.User;
 import it.prova.poker.model.User.Stato;
@@ -67,27 +69,30 @@ public class CercaUserServlet extends HttpServlet {
 		String stato=request.getParameter("stato");
 		String ruoloid=request.getParameter("ruolo");
 		
-		if(nome==null || cognome==null || username==null || data==null
-				|| stato==null || ruoloid==null) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
+		UserDTO userdto=new UserDTO(nome,cognome,username,data,stato,ruoloid);
+
+		List<String> userErrors = userdto.errorsSearch();
+
+		if (!userErrors.isEmpty()) {
+			request.setAttribute("userCampi", userdto);
+			request.setAttribute("userErrors", userErrors);
+			request.setAttribute("stati",Arrays.asList("CREATO","ATTIVO","INATTIVO"));
+			request.setAttribute("ruoli",ruoloService.listAllRuoli());
+			request.getRequestDispatcher("/gestione_amministrazione/search.jsp").forward(request, response);
 			return;
 		}
-		//Qui non si può utilizzano i DTO perchè i campi possono essere vuoti
+		
 		User u= new User(nome,cognome,username,null);
-		try {
-			u.setDataRegistrazione(data.isEmpty()?null:LocalDate.parse(data));
-			u.setStato(stato.isEmpty()?null:Stato.valueOf(stato));
-			if(!ruoloid.isEmpty()) {
-				Ruolo r=ruoloService.caricaSingoloRuolo(Long.parseLong(ruoloid));
-				if(r==null) {
-					throw new Exception("CercaUserServlet");
-				}
+		
+		u.setDataRegistrazione(data.isEmpty()?null:LocalDate.parse(data));
+		u.setStato(stato.isEmpty()?null:Stato.valueOf(stato));
+		if(!ruoloid.isEmpty()) {
+			Ruolo r=ruoloService.caricaSingoloRuolo(Long.parseLong(ruoloid));
+			if(r!=null) {
 				u.getRuoli().add(r);
 			}			
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
+		}			
+
 		
 		request.setAttribute("listaUsers",userService.findByExample(u));
 

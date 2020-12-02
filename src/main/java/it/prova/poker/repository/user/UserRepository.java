@@ -16,4 +16,7 @@ public interface UserRepository extends CrudRepository<User, Long>, QueryByExamp
 	
 	@Query("select distinct u from User u left join fetch u.ruoli where u.id= ?1")
 	User findWithRuoli(Long id);
+	
+	@Query("select distinct u from User u left join fetch u.tavolo_gioco where u.id= ?1")
+	User findWithGame(Long id);
 }

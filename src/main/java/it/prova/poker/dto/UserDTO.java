@@ -1,11 +1,13 @@
 package it.prova.poker.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import it.prova.poker.model.User;
+import it.prova.poker.model.User.Stato;
 
 public class UserDTO {
 	
@@ -15,6 +17,8 @@ public class UserDTO {
 	private String username;
 	private String password;
 	private String stato;
+	private String data;
+	private String ruoloId;
 	
 	public UserDTO() {
 	}
@@ -24,6 +28,31 @@ public class UserDTO {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
+	}
+
+	public UserDTO(String nome, String cognome, String username, String data, String stato, String ruoloId) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.data = data;
+		this.stato = stato;
+		this.ruoloId = ruoloId;
+	}
+	
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getRuoloId() {
+		return ruoloId;
+	}
+
+	public void setRuoloId(String ruoloId) {
+		this.ruoloId = ruoloId;
 	}
 
 	public String getStato() {
@@ -85,6 +114,41 @@ public class UserDTO {
 		if(StringUtils.isBlank(this.password))
 			result.add("Il campo password non può essere vuoto");
 		return result;
+	}
+	
+	public List<String> errorsSearch(){
+		List<String> result = new ArrayList<String>();
+		if(nome == null)
+			result.add("Il campo nome non è valido");
+		if(cognome == null)
+			result.add("Il campo cognome non è valido");
+		if(username == null)
+			result.add("Il campo username non è valido");
+		if(data == null || (!data.isEmpty() && isNaD(data)))
+			result.add("Il campo data non è valido");
+		if(stato == null || (!stato.isEmpty() && isNaS(stato)))
+			result.add("Il campo stato non è valido");
+		if(ruoloId == null || (!ruoloId.isEmpty() && !StringUtils.isNumeric(ruoloId)))
+			result.add("Il campo ruolo non è valido");
+		return result;
+	}
+	
+	private boolean isNaS(String stato) {
+		try {
+			Stato.valueOf(stato);
+		} catch (Exception e) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isNaD(String data) {
+		try {
+			LocalDate.parse(data);
+		} catch (Exception e) {
+			return true;
+		}
+		return false;
 	}
 
 	public static User buildModelFromDto(UserDTO userDTO) {

@@ -50,19 +50,19 @@
 
 						<div class="form-group col-md-6">
 							<label>Denominazione </label> <input type="text"
-								name="denominazione" id="denominazione" class="form-control">
+								name="denominazione" id="denominazione" class="form-control" value="${tavoloCampi.denominazione }">
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Data </label> <input type="date" name="data" id="data"
-								class="form-control">
+								class="form-control"  value="${tavoloCampi.data }">
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Puntata minima </label> <input type="number"
-								name="puntata" id="puntata" class="form-control">
+								name="puntata" id="puntata" class="form-control"  value="${tavoloCampi.cifraMin }">
 
 						</div>
 

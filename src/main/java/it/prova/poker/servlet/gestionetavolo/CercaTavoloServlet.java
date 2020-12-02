@@ -2,6 +2,7 @@ package it.prova.poker.servlet.gestionetavolo;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import it.prova.poker.dto.TavoloDTO;
 import it.prova.poker.model.Tavolo;
 import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
@@ -59,22 +61,22 @@ public class CercaTavoloServlet extends HttpServlet {
 		String denominazione=request.getParameter("denominazione");
 		String data=request.getParameter("data");
 		String puntata=request.getParameter("puntata");
-		
-		if(denominazione==null || data==null || puntata==null) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
-		//Qui non si usano i DTO perchè i campi possono essere vuoti
-		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
-		try {
-			t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
-			return;
-		}
-		
-		request.setAttribute("listaTavoli",tavoloService.findByExample2(t));
 
+		TavoloDTO tavoloDTO=new TavoloDTO(denominazione,data,puntata);
+		
+		List<String> tavoloErrors = tavoloDTO.errorsSearch();
+
+		if (!tavoloErrors.isEmpty()) {
+			request.setAttribute("tavoloCampi", tavoloDTO);
+			request.setAttribute("tavoloErrors", tavoloErrors);
+			request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
+			return;
+		}
+		
+		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
+		t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));
+
+		request.setAttribute("listaTavoli",tavoloService.findByExample2(t));
 		request.getRequestDispatcher("/gestione_tavolo/results.jsp").forward(request, response);
 	}
 
