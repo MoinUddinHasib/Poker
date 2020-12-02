@@ -1,6 +1,7 @@
 package it.prova.poker.servlet.gestionetavolo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import it.prova.poker.dto.TavoloDTO;
+import it.prova.poker.model.Tavolo;
 import it.prova.poker.model.User;
 import it.prova.poker.service.tavolo.TavoloService;
 
@@ -68,8 +70,9 @@ public class InserisciTavoloServlet extends HttpServlet {
 			request.getRequestDispatcher("/gestione_tavolo/form_tavolo.jsp").forward(request, response);
 			return;
 		}
-		
-		tavoloService.inserisciNuovo(TavoloDTO.buildModelFromDto(tavoloDTO));
+		Tavolo t=TavoloDTO.buildModelFromDto(tavoloDTO);
+		t.setDataCreazione(LocalDate.now());
+		tavoloService.inserisciNuovo(t);
 		request.setAttribute("messaggioConferma","Tavolo creato");
 		request.getRequestDispatcher("/gestione_tavolo/search.jsp").forward(request, response);
 	}

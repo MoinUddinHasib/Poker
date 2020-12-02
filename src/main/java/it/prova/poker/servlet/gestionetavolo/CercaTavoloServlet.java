@@ -64,6 +64,7 @@ public class CercaTavoloServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
+		//Qui non si usano i DTO perchè i campi possono essere vuoti
 		Tavolo t=new Tavolo(null, puntata.isEmpty()?null:Integer.parseInt(puntata), denominazione, u);
 		try {
 			t.setDataCreazione(data.isEmpty()?null:LocalDate.parse(data));

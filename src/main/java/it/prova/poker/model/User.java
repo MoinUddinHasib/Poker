@@ -77,10 +77,6 @@ public class User {
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
-		dataRegistrazione = LocalDate.now();
-		esperienzaAccumulata = 0;
-		creditoAccumulato  = 0;
-		stato = Stato.CREATO;
 	}
 
 	public Long getId() {

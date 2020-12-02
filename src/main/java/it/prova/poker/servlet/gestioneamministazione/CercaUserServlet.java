@@ -72,7 +72,7 @@ public class CercaUserServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
-		
+		//Qui non si può utilizzano i DTO perchè i campi possono essere vuoti
 		User u= new User(nome,cognome,username,null);
 		try {
 			u.setDataRegistrazione(data.isEmpty()?null:LocalDate.parse(data));

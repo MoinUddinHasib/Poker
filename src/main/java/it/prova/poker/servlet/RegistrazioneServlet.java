@@ -1,6 +1,7 @@
 package it.prova.poker.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import it.prova.poker.dto.UserDTO;
+import it.prova.poker.model.User;
+import it.prova.poker.model.User.Stato;
 import it.prova.poker.service.user.UserService;
 
 /**
@@ -71,7 +74,12 @@ public class RegistrazioneServlet extends HttpServlet {
 			request.getRequestDispatcher("form_registrazione.jsp").forward(request, response);
 			return;
 		}
-		userService.inserisciNuovo(UserDTO.buildModelFromDto(userDTO));
+		User u=UserDTO.buildModelFromDto(userDTO);
+		u.setDataRegistrazione(LocalDate.now());
+		u.setEsperienzaAccumulata(0);
+		u.setCreditoAccumulato(0);
+		u.setStato(Stato.CREATO);
+		userService.inserisciNuovo(u);
 		request.setAttribute("messaggioConferma","Registrazione avvenuta con successo");
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}

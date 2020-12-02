@@ -50,7 +50,6 @@ public class Tavolo {
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
 		this.user_creatore = user_creatore;
-		dataCreazione = LocalDate.now();
 	}
 
 	public Long getId() {

@@ -114,7 +114,7 @@ public class ModificaUserServlet extends HttpServlet {
 			return;
 		}
 		User us=userService.caricaSingoloUserConRuoli(id);
-		
+		//La password non può essere modificata
 		UserDTO userDTO=new UserDTO(nome,cognome,username,"vuoto");
 		
 		List<String> userErrors = userDTO.errors();

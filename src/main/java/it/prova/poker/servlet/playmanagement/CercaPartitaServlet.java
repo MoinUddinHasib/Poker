@@ -66,11 +66,14 @@ public class CercaPartitaServlet extends HttpServlet {
 		String puntataMinima=request.getParameter("puntata");
 		String creatoreId=request.getParameter("creatoreId");
 		String partecipanteId=request.getParameter("partecipanteId");
+		String creatoreUsername=request.getParameter("creatoreDesc");
+		String partecipanteUsername=request.getParameter("partecipanteDesc");
 
 		User u_creatore=null;
 		User u_partecipante=null;
 		LocalDate d=null;
 		Integer puntata=null;
+		//Qui i DTO non si usano perchè i campi possono essere vuoti
 		try {
 			u_creatore=userService.caricaSingoloUser((creatoreId==null||creatoreId.isEmpty())?-1:Long.parseLong(creatoreId));
 			u_partecipante=userService.caricaSingoloUser((partecipanteId==null||partecipanteId.isEmpty())?-1:Long.parseLong(partecipanteId));
@@ -80,6 +83,21 @@ public class CercaPartitaServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/ServletLogOut");
 			return;
 		}
+		if((!creatoreId.isEmpty() && !userService.caricaSingoloUser(Long.parseLong(creatoreId)).equals(userService.caricaPerUsername(creatoreUsername))) ||
+				(!creatoreUsername.isEmpty() && u_creatore==null) ) {
+			request.setAttribute("errorMessage", "selezione non valida");
+			request.getRequestDispatcher("/play_management/form_cerca.jsp").forward(request, response);
+			return;
+		}
+		
+		if((!partecipanteId.isEmpty() && !userService.caricaSingoloUser(Long.parseLong(partecipanteId)).equals(userService.caricaPerUsername(partecipanteUsername))) ||
+				(!partecipanteUsername.isEmpty() && u_partecipante==null) ) {
+			request.setAttribute("errorMessage", "selezione non valida");
+			request.getRequestDispatcher("/play_management/form_cerca.jsp").forward(request, response);
+			return;
+		}
+
+		
 		Tavolo t=new Tavolo(u.getEsperienzaAccumulata(),puntata,denominazione==null?"":denominazione,u_creatore);
 		t.setDataCreazione(d);
 		if(u_partecipante!=null) {

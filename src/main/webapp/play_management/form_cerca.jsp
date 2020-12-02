@@ -12,7 +12,8 @@
 	rel="stylesheet" />
 <style>
 .ui-autocomplete-loading {
-	background: white url("assets/img/anim_16x16.gif") right center no-repeat;
+	background: white url("assets/img/anim_16x16.gif") right center
+		no-repeat;
 }
 </style>
 
@@ -36,6 +37,15 @@
 
 				<form method="post"
 					action="${pageContext.request.contextPath}/CercaPartitaServlet">
+					<div
+						class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
+						role="alert">
+						${errorMessage}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
@@ -60,8 +70,7 @@
 							<label>Creatore </label>
 							<div class="col-sm-4">
 								<input class="form-control" type="text" id="creatoreDesc"
-									name="creatoreDesc"> 
-								<input type="hidden"
+									name="creatoreDesc"> <input type="hidden"
 									name="creatoreId" id="creatoreId">
 							</div>
 						</div>
@@ -70,8 +79,7 @@
 							<label>Partecipante </label>
 							<div class="col-sm-4">
 								<input class="form-control" type="text" id="partecipanteDesc"
-									name="partecipanteDesc"> 
-								<input type="hidden"
+									name="partecipanteDesc"> <input type="hidden"
 									name="partecipanteId" id="partecipanteId">
 							</div>
 						</div>
@@ -82,73 +90,73 @@
 						class='btn btn-outline-secondary' style='width: 80px'> Back </a>
 					<button type="submit" name="submit" value="submit" id="submit"
 						class="btn btn-primary">Cerca</button>
-						
-						<%-- FUNZIONE JQUERY UI CON AJAX PER AUTOCOMPLETE --%>
-			<script>
-				$( "#creatoreDesc" ).autocomplete({
-					 source: function(request, response) {
-					        $.ajax({
-					            url: "SearchUserAjaxServlet",
-					            datatype: "json",
-					            data: {
-					                term: request.term,   
-					            },
-					            success: function(data) {
-					                response($.map(data, function(item) {
-					                    return {
-						                    label: item.label,
-						                    value: item.value
-					                    }
-					                }))
-					            }
-					        })
-					    },
-					//quando seleziono la voce nel campo deve valorizzarsi la descrizione
-				    focus: function(event, ui) {
-				        $("#creatoreDesc").val(ui.item.label)
-				        return false
-				    },
-				    minLength: 1,
-				    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
-				    select: function( event, ui ) {
-				    	$('#creatoreId').val(ui.item.value);
-				    	console.log($('#creatoreId').val())
-				        return false;
-				    },
-				});
-				<%-- FUNZIONE JQUERY UI CON AJAX PER AUTOCOMPLETE --%>
-				$( "#partecipanteDesc" ).autocomplete({
-					 source: function(request, response) {
-					        $.ajax({
-					            url: "SearchUserAjaxServlet",
-					            datatype: "json",
-					            data: {
-					                term: request.term,   
-					            },
-					            success: function(data) {
-					                response($.map(data, function(item) {
-					                    return {
-						                    label: item.label,
-						                    value: item.value
-					                    }
-					                }))
-					            }
-					        })
-					    },
-					//quando seleziono la voce nel campo deve valorizzarsi la descrizione
-				    focus: function(event, ui) {
-				        $("#partecipanteDesc").val(ui.item.label)
-				        return false
-				    },
-				    minLength: 1,
-				    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
-				    select: function( event, ui ) {
-				    	$('#partecipanteId').val(ui.item.value);
-				    	console.log($('#partecipanteId').val())
-				        return false;
-				    },
-				});
-			</script>
+
+					<%-- FUNZIONE JQUERY UI CON AJAX PER AUTOCOMPLETE --%>
+					<script>
+						$("#creatoreDesc").autocomplete({
+							source : function(request, response) {
+								$.ajax({
+									url : "SearchUserAjaxServlet",
+									datatype : "json",
+									data : {
+										term : request.term,
+									},
+									success : function(data) {
+										response($.map(data, function(item) {
+											return {
+												label : item.label,
+												value : item.value
+											}
+										}))
+									}
+								})
+							},
+							//quando seleziono la voce nel campo deve valorizzarsi la descrizione
+							focus : function(event, ui) {
+								$("#creatoreDesc").val(ui.item.label)
+								return false
+							},
+							minLength : 1,
+							//quando seleziono la voce nel campo hidden deve valorizzarsi l'id
+							select : function(event, ui) {
+								$('#creatoreId').val(ui.item.value);
+								console.log($('#creatoreId').val())
+								return false;
+							},
+						});
+					<%-- FUNZIONE JQUERY UI CON AJAX PER AUTOCOMPLETE --%>
+						$("#partecipanteDesc").autocomplete({
+							source : function(request, response) {
+								$.ajax({
+									url : "SearchUserAjaxServlet",
+									datatype : "json",
+									data : {
+										term : request.term,
+									},
+									success : function(data) {
+										response($.map(data, function(item) {
+											return {
+												label : item.label,
+												value : item.value
+											}
+										}))
+									}
+								})
+							},
+							//quando seleziono la voce nel campo deve valorizzarsi la descrizione
+							focus : function(event, ui) {
+								$("#partecipanteDesc").val(ui.item.label)
+								return false
+							},
+							minLength : 1,
+							//quando seleziono la voce nel campo hidden deve valorizzarsi l'id
+							select : function(event, ui) {
+								$('#partecipanteId').val(ui.item.value);
+								console.log($('#partecipanteId').val())
+								return false;
+							},
+						});
+					</script>
 				</form>
 
 				<!-- end card-body -->
