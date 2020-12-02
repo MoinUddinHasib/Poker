@@ -52,7 +52,12 @@ public class AttivaUserServlet extends HttpServlet {
 			return;
 		}
 		
-		User u= userService.caricaSingoloUser(id);
+		User u= userService.caricaSingoloUserConRuoli(id);
+		if(u.getRuoli().size()==0) {
+			request.setAttribute("errorMessage","L'utente non ha ruoli, quindi non può essere attivato");
+			request.getRequestDispatcher("/gestione_amministrazione/search.jsp").forward(request, response);
+			return;
+		}
 		u.setStato(Stato.ATTIVO);
 		userService.aggiorna(u);
 		request.setAttribute("messaggioConferma","User attivato");
