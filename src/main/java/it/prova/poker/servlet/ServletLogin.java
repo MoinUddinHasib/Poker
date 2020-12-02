@@ -71,7 +71,7 @@ public class ServletLogin extends HttpServlet {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}
-		uten=userService.caricaSingoloUserConRuoli(uten.getId());
+		uten=userService.caricaSingoloUserConPartitaERuoli(uten.getId());
 		for(Ruolo r: uten.getRuoli()) {
 			if(r.getTipo().equals(Tipo.ADMIN_ROLE)) {
 				session.setAttribute("admin_assert", true);
@@ -80,7 +80,7 @@ public class ServletLogin extends HttpServlet {
 				session.setAttribute("special_assert", true);
 			}
 		}
-		uten=userService.caricaSingoloUserConPartita(uten.getId());
+		
 		session.setAttribute("user", uten);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}

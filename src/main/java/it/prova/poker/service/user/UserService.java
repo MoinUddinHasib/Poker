@@ -24,6 +24,6 @@ public interface UserService {
 
 	public User caricaSingoloUserConRuoli(long id);
 	
-	public User caricaSingoloUserConPartita(long id);
+	public User caricaSingoloUserConPartitaERuoli(long id);
 
 }
