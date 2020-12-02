@@ -42,19 +42,19 @@
 						<input type="hidden" value="${requestScope.id }" name="id" id="id">
 						<div class="form-group col-md-6">
 							<label>Nome </label> <input type="text" name="nome" id="nome"
-								class="form-control" value="${user.nome }">
+								class="form-control" value="${user.nome }" required>
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Cognome </label> <input type="text" name="cognome"
-								id="cognome" class="form-control" value="${user.cognome }">
+								id="cognome" class="form-control" value="${user.cognome }" required>
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Username </label> <input type="text" name="username"
-								id="username" class="form-control" value="${user.username }">
+								id="username" class="form-control" value="${user.username }" required>
 						</div>
 						<c:if test="${requestScope.stato eq 'CREATO' }">
 

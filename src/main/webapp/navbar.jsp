@@ -31,7 +31,8 @@
         <a class="nav-link" href="${pageContext.request.contextPath}/ServletLogOut">Log-Out <span class="sr-only">(current)</span></a>
         </c:if>
       </li>
-			<li>Benvenuto  ${sessionScope.user.nome } ${sessionScope.user.cognome } Username: ${sessionScope.user.username } Credito: ${sessionScope.user.creditoAccumulato }</li>
+			<li>Benvenuto  ${sessionScope.user.nome } ${sessionScope.user.cognome }; Username: ${sessionScope.user.username }; Credito: ${sessionScope.user.creditoAccumulato };
+			Esperienza: ${sessionScope.user.esperienzaAccumulata }; In gioco: ${sessionScope.user.tavolo_gioco != null }</li>
 		</ul>
 		
 		<form class="form-inline my-2 my-lg-0">

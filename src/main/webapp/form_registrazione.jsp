@@ -36,25 +36,25 @@
 
 						 <div class="form-group col-md-6">
 							<label>Nome </label> <input type="text" name="nome"
-								id="nome" class="form-control" value="${userCampi.nome }">
+								id="nome" class="form-control" value="${userCampi.nome }" required>
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Cognome </label> <input type="text" name="cognome"
-								id="cognome" class="form-control" value="${userCampi.cognome }">
+								id="cognome" class="form-control" value="${userCampi.cognome }" required>
 
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Username </label> <input type="text" name="username"
-								id="username" class="form-control" value="${userCampi.username }">
+								id="username" class="form-control" value="${userCampi.username }" required>
 
 						</div>
 						
 						<div class="form-group col-md-6">
 							<label>Password </label> <input type="text" name="password"
-								id="password" class="form-control" value="${userCampi.password }">
+								id="password" class="form-control" value="${userCampi.password }" required>
 						</div>
 					</div>
 					<a
